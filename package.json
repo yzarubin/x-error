@@ -1,0 +1,27 @@
+{
+  "name": "x-error",
+  "version": "0.0.0",
+  "description": "Utility for creating and extending error objects",
+  "main": "index.js",
+  "scripts": {
+    "test": "make"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yzarubin/x-error.git"
+  },
+  "devDependencies": {
+    "chai": "~1.9.0",
+    "mocha": "~1.17.0",
+    "jshint": ">=2.4.2"
+  },
+  "keywords": [
+    "error"
+  ],
+  "author": "Yuri Zarubin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yzarubin/x-error/issues"
+  },
+  "homepage": "https://github.com/yzarubin/x-error"
+}
