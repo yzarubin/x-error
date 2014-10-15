@@ -32,26 +32,22 @@ describe('xError tests', function () {
       expect(e.data.toString()).to.equal({test: 123}.toString())
     })
     it('should instantiate with arguments correctly #4', function () {
-      var e = new xError(5, 'hello', {test: 123}, 99)
-      console.log(JSON.stringify(e))
+      var e = new xError(5, 'hello', {test: 123})
       expect(typeof e.stack === 'string').to.be.true
       expect(e.code).to.equal(5)
       expect(e.message).to.equal('hello')
       expect(e.data.toString()).to.equal({test: 123}.toString())
-      expect(e.severity).to.equal(99)
     })
     it('should instantiate with arguments correctly #5', function () {
-      var e = new xError('hello', {test: 123}, 99)
+      var e = new xError('hello', {test: 123})
       expect(typeof e.stack === 'string').to.be.true
       expect(e.message).to.equal('hello')
       expect(e.data.toString()).to.equal({test: 123}.toString())
-      expect(e.severity).to.equal(99)
     })
     it('should instantiate with arguments correctly #6', function () {
-      var e = new xError({test: 123}, 99)
+      var e = new xError({test: 123})
       expect(typeof e.stack === 'string').to.be.true
       expect(e.data.toString()).to.equal({test: 123}.toString())
-      expect(e.severity).to.equal(99)
     })
     it('should instantiate with arguments correctly #7', function () {
       var e = new xError(99)
@@ -62,27 +58,23 @@ describe('xError tests', function () {
       var e = new xError(5,99)
       expect(typeof e.stack === 'string').to.be.true
       expect(e.code).to.equal(5)
-      expect(e.severity).to.equal(99)
     })
     it('should instantiate with arguments correctly #9', function () {
-      var e = new xError(5,'hello',99)
+      var e = new xError(5,'hello')
       expect(typeof e.stack === 'string').to.be.true
       expect(e.code).to.equal(5)
       expect(e.message).to.equal('hello')
-      expect(e.severity).to.equal(99)
     })
     it('should instantiate with arguments correctly #10', function () {
-      var e = new xError(5,{test: 123},99)
+      var e = new xError(5,{test: 123})
       expect(typeof e.stack === 'string').to.be.true
       expect(e.code).to.equal(5)
       expect(e.data.toString()).to.equal({test: 123}.toString())
-      expect(e.severity).to.equal(99)
     })
     it('should push data into an undefined data object', function () {
       var e = new xError()
       expect(typeof e.stack === 'string').to.be.true
       expect(e.data).to.equal(undefined)
-
       e.pushData('newkey', 'newvalue')
       expect(e.data['newkey']).to.equal('newvalue')
     })
@@ -90,7 +82,6 @@ describe('xError tests', function () {
       var e = new xError({ value: '123'})
       expect(typeof e.stack === 'string').to.be.true
       expect(e.data.value).to.equal('123')
-
       e.pushData('newkey', 'newvalue')
       expect(e.data['newkey']).to.equal('newvalue')
     })
@@ -98,14 +89,12 @@ describe('xError tests', function () {
       var e = new xError({ value: '123'})
       expect(typeof e.stack === 'string').to.be.true
       expect(e.data.value).to.equal('123')
-
       e.pushData('newkey', 'newvalue')
       expect(e.data['newkey']).to.equal('newvalue')
     })
     it('should set httpCode', function () {
       var e = new xError()
       expect(typeof e.stack === 'string').to.be.true
-
       e.setHttpCode(500)
       expect(e.httpCode).to.equal(500)
     })
@@ -125,13 +114,19 @@ describe('xError tests', function () {
       var e = new Error('message')
       var ex = new xError()
       ex.extends(e)
-      console.log(ex.stack)
-      console.log(e.stack)
 
       expect(typeof e.stack === 'string').to.be.true
       expect(ex.message).to.equal('message')
       expect(ex.stack).to.equal(e.stack)
     })
-  })
+    it('stack should be included in JSON.stringify()', function () {
+      var e = new Error('message')
+      var ex = new xError()
+      ex.extends(e)
 
+      expect(JSON.parse(JSON.stringify(ex)).stack.length).to.be.gt(10)
+      expect(JSON.parse(JSON.stringify(ex)).message).to.equal('message')
+      expect(JSON.parse(JSON.stringify(e)).stack).to.equal(undefined)
+    })
+  })
 })
