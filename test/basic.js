@@ -4,9 +4,13 @@ var xError    = require('./../lib/x-error')
   , should    = chai.should();
 
 describe('xError tests', function () {
-  it('should be an instance of error', function () {
+  it('should be an instance of Error', function () {
     var e = new xError();
     expect(e).to.be.an.instanceof(Error);
+  });
+  it('should be an instance of xError', function () {
+    var e = new xError();
+    expect(e).to.be.an.instanceof(xError);
   });
   it('should generate the stack correctly', function () {
     var e = new xError();
