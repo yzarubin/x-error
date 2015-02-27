@@ -1,6 +1,6 @@
 {
   "name": "x-error",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Utility for creating and extending error objects",
   "main": "index.js",
   "scripts": {
