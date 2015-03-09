@@ -168,11 +168,11 @@ function create(req, res, next) {
 
 ### Better JSON support
 
-X-Error is co-operates with `JSON.stringify()` by properly enumerating over stack and message properties. This is in contrast with the vanilla Error object which would serialize to an empty object ```"{}"```.
+X-Error is co-operates with `JSON.stringify()` by properly enumerating over stack and message properties. This is in contrast with the vanilla Error object which serializes into ```"{}"```.
 
 ### Better debugging
 
-Use the built-in ```debug()``` method to better diagnose your applications. You can access:
+Use the built-in ```debug()``` method to better diagnose your applications:
 
 ```js
 function getStuff(id) {
