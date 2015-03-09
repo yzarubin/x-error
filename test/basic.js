@@ -250,6 +250,15 @@ describe('XError tests', function () {
     expect(e._debug[2].foo).to.equal('bar');
   });
 
+  it('should populate the debug array with multiple arguments', function(){
+    var e = new XError('message').debug('foo', ['bar'], {foo:'bar'});
+    expect(typeof e.stack === 'string').to.be.true;
+    expect(e.message).to.equal('message');
+    expect(e._debug[0]).to.equal('foo');
+    expect(e._debug[1][0]).to.equal('bar');
+    expect(e._debug[2].foo).to.equal('bar');
+  });
+  
   it('should instantiate correctly with Error instance as the parameter #1', function(){
     var e = new Error('foobar');
     var ex = new XError(e);
@@ -257,7 +266,6 @@ describe('XError tests', function () {
     expect(e.stack).to.equal(ex.stack);
 
   });
-
 
   it('should instantiate correctly with Error instance as the parameter #2', function(){
     var e = new Error('foobar');
@@ -284,5 +292,19 @@ describe('XError tests', function () {
     expect(ex.message).to.equal('foo');
     expect(ex.code).to.equal(1);
     expect(ex.foo).to.equal('bar');
+  });
+
+  it('should extend prototype correctly', function(){
+    XError.prototype.setPriority = function(priority) {
+      this.priority = priority;
+      return this;
+    };
+
+    var ex = new XError(1, 'foo', {foo: 'bar'}).setPriority('top').debug('test');
+    expect(ex.message).to.equal('foo');
+    expect(ex.code).to.equal(1);
+    expect(ex.foo).to.equal('bar');
+    expect(ex._debug[0]).to.equal('test');
+    expect(ex.priority).to.equal('top');
   });
 });
